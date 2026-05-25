@@ -625,7 +625,7 @@ async function loadData() {
     return true;
   } catch(e) {
     console.error('Failed to load tournament data:', e);
-    showToast('Failed to load tournament data. Check your connection.', true);
+    showToast('Uyy compa, falló al jalar la info. Recarga tu página.', true);
     return false;
   }
 }
@@ -3311,7 +3311,8 @@ function parseCSV(text) {
 // ---- Submit / Welcome ----
 async function checkAlreadySubmitted(name) {
   try {
-    const docRef = window.fsDoc(window.db, 'predictions', name);
+    const colRef = window.fsCollection(window.db, 'predictions');
+    const docRef = window.fsDoc(colRef, name);
     const docSnap = await window.fsGetDoc(docRef);
     return docSnap.exists();
   } catch (e) {
@@ -3324,7 +3325,7 @@ function updateGreeting() {
   const stored = localStorage.getItem(STORED_NAME_KEY);
   const el = document.getElementById('userGreeting');
   if (el) {
-    el.textContent = stored ? `👋 Bienvenido, ${stored}` : '';
+    el.textContent = stored ? `👋 ¡Qué tranza, ${stored}!` : '';
   }
 }
 
@@ -3338,10 +3339,10 @@ function openWelcomeModal(submitAfter) {
 
   modal.dataset.mode = 'welcome';
   modal.dataset.submitAfter = submitAfter ? 'true' : 'false';
-  title.textContent = '👋 ¡Bienvenido a la Quiniela de Brandtech Plus!';
-  desc.textContent = 'Ingresa tu nombre tal cual aparece en Microsoft Teams:';
-  cancelBtn.textContent = 'Despu\u00e9s';
-  confirmBtn.textContent = 'Guardar';
+  title.textContent = '👋 ¡Qué pedo parce! Bienvenido al Mundial';
+  desc.textContent = 'Pon tu nombre tal cual sales en Teams, para ubicarte:';
+  cancelBtn.textContent = 'Al rato';
+  confirmBtn.textContent = '¡Fierro!';
 
   modal.style.display = 'flex';
   input.value = '';
@@ -3357,10 +3358,10 @@ function openNameModalForSubmit() {
   const confirmBtn = document.getElementById('confirmNameSubmit');
 
   modal.dataset.mode = 'submit';
-  title.textContent = 'Así que sentando cátedra, ¿eh?';
-  desc.textContent = '¿Quién cojones eres?';
-  cancelBtn.textContent = 'Paso';
-  confirmBtn.textContent = 'Apostar';
+  title.textContent = '¡Qué chimba de predicción parce! ¿Quién eres?';
+  desc.textContent = 'Dinos tu nombre para el muro de la fama:';
+  cancelBtn.textContent = 'Ni madres';
+  confirmBtn.textContent = '¡A wuevo, apostar!';
 
   modal.style.display = 'flex';
   input.value = localStorage.getItem(STORED_NAME_KEY) || '';
@@ -3408,15 +3409,16 @@ async function confirmSubmitPrediction(playerName) {
   showLoading('Publicando...');
 
   try {
-    const docRef = window.fsDoc(window.db, 'predictions', name);
+    const colRef = window.fsCollection(window.db, 'predictions');
+    const docRef = window.fsDoc(colRef, name);
     await window.fsSetDoc(docRef, payload);
     hideLoading();
     fireConfetti();
-    showToast('Listo, buena suerte. Tu predicción se ha guardado correctamente.');
+    showToast('¡Listo parce! Tu predicción se ha guardado al puro millón.');
   } catch(e) {
     console.error("Error guardando predicción:", e);
     hideLoading();
-    showToast('Error. Inténtalo otra vez o avísame.', true);
+    showToast('Error carnal. Inténtalo otra vez o pega el grito.', true);
   }
 }
 
@@ -3425,7 +3427,7 @@ async function confirmWelcomeName() {
   const playerName = input.value.trim();
 
   if (!playerName) {
-    showToast('Por favor ingresa tu nombre.', true);
+    showToast('Pus no nombre, no party pariente. Pon tu nombre.', true);
     input.focus();
     return;
   }
@@ -3433,7 +3435,7 @@ async function confirmWelcomeName() {
   localStorage.setItem(STORED_NAME_KEY, playerName);
   closeNameModal();
   updateGreeting();
-  showToast(`¡Bienvenido, ${playerName}!`);
+  showToast(`¡Qué onda, ${playerName}! Listo pa ganar o qué?`);
 
   // If triggered from submit flow, proceed to submit
   const modal = document.getElementById('nameModal');
@@ -3489,7 +3491,7 @@ function resetState() {
   clearLocalPrediction();
   renderAll();
 
-  showToast('A tomar por culo.');
+  showToast('¡Borrón y cuenta nueva parceros!');
 }
 
 // ---- Init ----
@@ -3497,7 +3499,7 @@ async function init() {
   showLoading('Loading tournament data...');
   const ok = await loadData();
   hideLoading();
-  if (!ok) { showToast('Failed to load tournament data. Check connection and reload.', true); return; }
+  if (!ok) { showToast('Uyy compa, falló al jalar la info. Recarga tu página.', true); return; }
 
   // Clear stale localStorage from old incompatible data
   const v = localStorage.getItem(LOCAL_STORAGE_VERSION_KEY);
@@ -3515,57 +3517,6 @@ async function init() {
     });
   });
 
-  document.getElementById('btnRandomize').addEventListener('click', () => {
-    if (!confirm('Esto sobreescribirá todo tu progreso con resultados al azar. ¿Deseas continuar?')) return;
-    
-    // Fill groups randomly
-    ensureAllGroupMatches();
-    GROUP_NAMES.forEach(group => {
-      getGroupMatchList(group).forEach(match => {
-        state.groupMatches[group][match.key] = { home: Math.floor(Math.random() * 4), away: Math.floor(Math.random() * 4) };
-      });
-      updateGroupOrderFromMatches(group);
-    });
-    
-    buildTPAllocation();
-    
-    // Helper to simulate a round
-    function randomRound(roundMatches) {
-      computeMatchTeams();
-      (roundMatches || []).forEach(m => {
-        const teams = state.matchTeams[m.num] || {};
-        if (teams.team1 && teams.team2 && teams.team1 !== 'TBD' && teams.team2 !== 'TBD') {
-          state.knockoutResults[m.num] = Math.random() < 0.5 ? teams.team1 : teams.team2;
-        }
-      });
-    }
-
-    randomRound(KO_TREE.round32);
-    randomRound(KO_TREE.round16);
-    randomRound(KO_TREE.quarterfinals);
-    randomRound(KO_TREE.semifinals);
-    
-    // We have to wait for semifinals calculation for third place
-    computeMatchTeams();
-    if (KO_TREE.thirdPlace) {
-       randomRound(KO_TREE.thirdPlace);
-    }
-    if (KO_TREE.final) {
-       randomRound(KO_TREE.final);
-    }
-
-    // Randomize awards
-    const allTeams = GROUP_NAMES.flatMap(g => TEAMS_BY_GROUP[g].map(t => t.name));
-    const rt = () => allTeams[Math.floor(Math.random() * allTeams.length)];
-    state.awards = { goldenBoot: [rt(), rt(), rt()], goldenBall: [rt(), rt(), rt()] };
-    state.underdog = rt();
-
-    computeMatchTeams(); // Final pass
-    renderAll();
-    saveLocalPredictionSoon();
-    showToast('🏆 Resultados rellenados al azar');
-  });
-
   document.getElementById('btnReset').addEventListener('click', () => {
     resetState();
     computeMatchTeams();
@@ -3581,6 +3532,46 @@ async function init() {
   document.getElementById('playerNameInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') handleNameModalConfirm();
     if (e.key === 'Escape') closeNameModal();
+  });
+
+  document.getElementById('btnDownloadFicha').addEventListener('click', async () => {
+    const btn = document.getElementById('btnDownloadFicha');
+    const oldText = btn.textContent;
+    btn.textContent = '📸 Preparando foto...';
+    btn.disabled = true;
+
+    try {
+      const viewer = document.getElementById('predictionModalContent');
+      // Hide close button and download button temporarily for clean screenshot
+      const toolbar = viewer.querySelector('.prediction-modal-toolbar');
+      if (toolbar) toolbar.style.display = 'none';
+
+      const canvas = await html2canvas(viewer, {
+        scale: 2, 
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false
+      });
+
+      if (toolbar) toolbar.style.display = 'flex';
+
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      const storedName = localStorage.getItem(STORED_NAME_KEY) || 'quiniela';
+      link.download = `pronostico_mundial26_${storedName.replace(/\s+/g, '_')}.png`;
+      link.href = dataUrl;
+      link.click();
+      
+      showToast('¡Ficha descargada! Mándala por Teams.');
+    } catch(err) {
+      console.error(err);
+      showToast('No se pudo generar la imagen. Intenta desde la PC.', true);
+      const toolbar = document.querySelector('.prediction-modal-toolbar');
+      if (toolbar) toolbar.style.display = 'flex';
+    } finally {
+      btn.textContent = oldText;
+      btn.disabled = false;
+    }
   });
 
   document.getElementById('closePredictionModal').addEventListener('click', closePredictionModal);

@@ -6,24 +6,24 @@
 
 :root {
   /* Cartoon Color Palette */
-  --grass-green: #4CAF50;
-  --grass-light: #81C784;
-  --field-green: #C8E6C9;
-  --dirt-brown: #8D6E63;
-  --sky-blue: #64B5F6;
-  --gold: #FFD700;
-  --gold-dark: #F9A825;
-  --silver: #BDBDBD;
-  --bronze: #FF8A65;
-  --red-accent: #FF6B6B;
-  --dark-text: #1a1a2e;
-  --mid-text: #37474F;
-  --light-bg: #F1F8E9;
-  --white: #FFFFFF;
-  --card-bg: #FFFFFF;
-  --border-color: #2E7D32;
+  --grass-green: #000000;
+  --grass-light: #f0f0f0;
+  --field-green: #f0f0f0;
+  --dirt-brown: #000000;
+  --sky-blue: #000000;
+  --gold: #ffb300;
+  --gold-dark: #000000;
+  --silver: #f0f0f0;
+  --bronze: #ffb300;
+  --red-accent: #000000;
+  --dark-text: #000000;
+  --mid-text: #000000;
+  --light-bg: #ffffff;
+  --white: #ffffff;
+  --card-bg: #ffb300;
+  --border-color: #000000;
   --border-thick: 3px solid var(--border-color);
-  --border-medium: 2px solid #546E7A;
+  --border-medium: 2px solid #000000;
   --shadow-soft: 4px 4px 0px rgba(0,0,0,0.12);
   --shadow-pop: 6px 6px 0px rgba(0,0,0,0.18);
   --radius-sm: 10px;
@@ -41,7 +41,7 @@ html {
 
 body {
   font-family: var(--font);
-  background: linear-gradient(180deg, #E8F5E9 0%, var(--light-bg) 50%, #DCEDC8 100%);
+  background: linear-gradient(180deg, #f0f0f0 0%, var(--light-bg) 50%, #f0f0f0 100%);
   color: var(--dark-text);
   min-height: 100vh;
   background-attachment: fixed;
@@ -155,7 +155,7 @@ header .subtitle {
   padding: 7px 8px;
   margin: 4px 0;
   background: var(--light-bg);
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: 0.9rem;
@@ -175,15 +175,15 @@ header .subtitle {
 }
 
 .group-team.eliminated {
-  background: #ffd6d6 !important;
-  border-color: #e57373 !important;
+  background: #ffffff !important;
+  border-color: #000000 !important;
   opacity: 0.9;
 }
 
-.group-team.pos-1 .position-badge { background: var(--gold); color: #1a1a2e; }
-.group-team.pos-2 .position-badge { background: var(--silver); color: #1a1a2e; }
+.group-team.pos-1 .position-badge { background: var(--gold); color: #000000; }
+.group-team.pos-2 .position-badge { background: var(--silver); color: #000000; }
 .group-team.pos-3 .position-badge { background: var(--bronze); color: #fff; }
-.group-team.pos-4 .position-badge { background: #E0E0E0; color: #555; }
+.group-team.pos-4 .position-badge { background: #f0f0f0; color: #555; }
 
 .group-team .team-flag {
   font-size: 1rem;
@@ -198,7 +198,7 @@ header .subtitle {
 }
 .group-team .move-btns button {
   width: 20px; height: 16px;
-  border: 1.5px solid #546E7A;
+  border: 1.5px solid #000000;
   border-radius: 4px;
   background: var(--white);
   cursor: pointer;
@@ -215,7 +215,7 @@ header .subtitle {
   font-size: 0.85rem;
   font-weight: 600;
   padding: 4px 6px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   background: var(--white);
   cursor: pointer;
@@ -249,7 +249,7 @@ header .subtitle {
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
-  background: #FFF8E1;
+  background: #ffffff;
   border: 2px solid var(--gold);
   border-radius: var(--radius-pill);
   font-weight: 700;
@@ -258,7 +258,7 @@ header .subtitle {
   transition: all 0.15s ease;
 }
 .third-pick-tag:hover {
-  background: #FFECB3;
+  background: #ffb300;
   border-color: var(--red-accent);
 }
 
@@ -332,8 +332,8 @@ header .subtitle {
   min-height: 42px;
   padding: 0 10px;
 
-  background: #eceff1;
-  border: 2px solid #607d8b;
+  background: #f0f0f0;
+  border: 2px solid #000000;
   border-radius: 11px;
 
   box-sizing: border-box;
@@ -357,18 +357,18 @@ header .subtitle {
 }
 
 .review-correct {
-  background: #d9f7d9 !important;
-  border-color: #43a047 !important;
+  background: #f0f0f0 !important;
+  border-color: #000000 !important;
 }
 
 .review-wrong {
-  background: #ffd6d6 !important;
-  border-color: #e53935 !important;
+  background: #ffffff !important;
+  border-color: #000000 !important;
 }
 
 .review-pending {
-  background: #eceff1 !important;
-  border-color: #90a4ae !important;
+  background: #f0f0f0 !important;
+  border-color: #000000 !important;
 }
 
 .bracket-slot:hover {
@@ -380,15 +380,15 @@ header .subtitle {
 }
 
 .bracket-slot.empty-slot {
-  background: #eceff1 !important;
-  border-color: #78909c !important;
-  color: #546e7a;
+  background: #f0f0f0 !important;
+  border-color: #000000 !important;
+  color: #000000;
 }
 
 .bracket-slot.winner {
-  background: #ffd600 !important;
-  border-color: #f9a825 !important;
-  color: #111 !important;
+  background: #ffb300 !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
   font-weight: 900;
 
   box-shadow:
@@ -398,8 +398,8 @@ header .subtitle {
 }
 
 .bracket-slot.loser {
-  background: #ffcdd2 !important;
-  border-color: #d32f2f !important;
+  background: #ffffff !important;
+  border-color: #000000 !important;
   color: #8e0000 !important;
   opacity: 0.88;
 }
@@ -411,15 +411,15 @@ header .subtitle {
 
 .bracket-slot.disabled-slot:hover {
   transform: none;
-  border-color: #78909c;
+  border-color: #000000;
   box-shadow:
     0 2px 0 rgba(0,0,0,0.08),
     0 3px 10px rgba(0,0,0,0.06);
 }
 
 .bracket-slot.third {
-  background: #cd7f32 !important;
-  border-color: #a85d18 !important;
+  background: #ffb300 !important;
+  border-color: #000000 !important;
   color: white !important;
 }
 
@@ -460,7 +460,7 @@ header .subtitle {
   border: none;
   background: transparent;
 
-  color: #ef5350;
+  color: #000000;
   font-size: 14px;
   font-weight: 900;
 
@@ -474,7 +474,7 @@ header .subtitle {
 }
 
 .slot-clear:hover {
-  background: rgba(239,83,80,0.12);
+  background: #f0f0f0;
   transform: scale(1.1);
 }
 
@@ -547,7 +547,7 @@ header .subtitle {
 .award-select {
   width: 100%;
   padding: 10px 12px;
-  border: 2px solid #a5d6a7;
+  border: 2px solid #000000;
   border-radius: 9px;
   background: white;
   font-size: 0.95rem;
@@ -558,7 +558,7 @@ header .subtitle {
 .award-select:focus {
   outline: none;
   border-color: var(--grass-green);
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.18);
+  box-shadow: 0 0 0 3px #000000;
 }
 
 .awards-section {
@@ -632,7 +632,7 @@ header .subtitle {
   font-family: var(--font);
   font-size: 0.9rem;
   padding: 8px 12px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   background: var(--white);
   flex: 1;
@@ -641,7 +641,7 @@ header .subtitle {
 .award-row input:focus {
   outline: none;
   border-color: var(--grass-green);
-  box-shadow: 0 0 0 3px rgba(76,175,80,0.15);
+  box-shadow: 0 0 0 3px #000000;
 }
 
 /* ---- Submit ---- */
@@ -687,7 +687,7 @@ header .subtitle {
   font-family: var(--font);
   font-size: 0.9rem;
   padding: 8px 12px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   width: 100%;
   max-width: 500px;
@@ -715,7 +715,7 @@ header .subtitle {
 .leaderboard-table td {
   padding: 12px 10px;
   background: var(--card-bg);
-  border: 2px solid #E0E0E0;
+  border: 2px solid #f0f0f0;
   text-align: center;
   font-weight: 600;
   font-size: 0.9rem;
@@ -723,7 +723,7 @@ header .subtitle {
 .leaderboard-table td:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
 .leaderboard-table td:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
 .leaderboard-table tr.rank-1 td {
-  background: #FFF8E1;
+  background: #ffffff;
   border-color: var(--gold);
   font-weight: 800;
 }
@@ -827,19 +827,27 @@ header .subtitle {
   padding: 26px;
 }
 
-.prediction-modal-close {
+.prediction-modal-toolbar {
   position: sticky;
   top: 0;
   left: 100%;
   z-index: 5;
+  
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
 
+.prediction-modal-close {
   width: 36px;
   height: 36px;
 
   border: none;
   border-radius: 999px;
 
-  background: #ef5350;
+  background: #000000;
   color: white;
 
   font-size: 24px;
@@ -851,7 +859,7 @@ header .subtitle {
 }
 
 .prediction-modal-close:hover {
-  background: #d32f2f;
+  background: #000000;
 }
 
 .prediction-review h3 {
@@ -1053,7 +1061,7 @@ header .subtitle {
 .name-modal-input:focus {
   outline: none;
   border-color: var(--grass-green);
-  box-shadow: 0 0 0 3px rgba(76,175,80,0.18);
+  box-shadow: 0 0 0 3px #000000;
 }
 
 .name-modal-actions {
@@ -1074,7 +1082,7 @@ header .subtitle {
   font-weight: 700;
   padding: 8px 18px;
   border-radius: var(--radius-pill);
-  border: 2px solid #546E7A;
+  border: 2px solid #000000;
   cursor: pointer;
   background: var(--white);
   color: var(--mid-text);
@@ -1096,7 +1104,7 @@ header .subtitle {
   font-family: var(--font);
   font-size: 0.85rem;
   padding: 6px 10px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
 }
 .refresh-btn {
@@ -1124,7 +1132,7 @@ header .subtitle {
 
 .group-card-clickable:focus {
   outline: none;
-  box-shadow: var(--shadow-pop), 0 0 0 3px rgba(76,175,80,0.22);
+  box-shadow: var(--shadow-pop), 0 0 0 3px #000000;
 }
 
 .group-card-clickable.group-complete h3::after {
@@ -1143,7 +1151,7 @@ header .subtitle {
 }
 
 .group-total-points {
-  background: #e0e0e0;
+  background: #f0f0f0;
   color: #666;
   flex-shrink: 0;
   font-size: 0.72rem;
@@ -1194,7 +1202,7 @@ header .subtitle {
   gap: 14px;
   padding: 18px 12px;
   background: rgba(255,255,255,0.78);
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-md);
   box-shadow: 0 2px 0 rgba(0,0,0,0.04);
   font-weight: 900;
@@ -1212,7 +1220,7 @@ header .subtitle {
 .group-modal-divider {
   height: 2px;
   margin: 0 0 28px;
-  background: #C8E6C9;
+  background: #000000;
   border-radius: 999px;
 }
 
@@ -1239,14 +1247,14 @@ header .subtitle {
   gap: 18px;
   padding: 12px;
   background: rgba(241,248,233,0.95);
-  border: 2px solid #a5d6a7;
+  border: 2px solid #000000;
   border-radius: var(--radius-md);
   box-shadow: 0 2px 0 rgba(0,0,0,0.04);
 }
 
 .match-date-badge {
   height: 70px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   background: rgba(255,255,255,0.55);
   color: var(--border-color);
@@ -1323,7 +1331,7 @@ header .subtitle {
 .score-input:focus {
   outline: none;
   border-color: var(--border-color);
-  box-shadow: 0 0 0 3px rgba(76,175,80,0.18), 2px 2px 0 rgba(0,0,0,0.08);
+  box-shadow: 0 0 0 3px #000000, 2px 2px 0 rgba(0,0,0,0.08);
 }
 
 .score-separator {
@@ -1351,7 +1359,7 @@ header .subtitle {
 .group-modal-info {
   margin-top: 28px;
   padding: 16px 18px;
-  border-top: 2px solid #C8E6C9;
+  border-top: 2px solid #000000;
   background: rgba(241,248,233,0.70);
   color: var(--mid-text);
   font-weight: 700;
@@ -1401,7 +1409,7 @@ header .subtitle {
 
 
 .group-team.qualified-third {
-  background: #fff8e1 !important;
+  background: #ffffff !important;
   border-color: var(--gold) !important;
 }
 
@@ -1434,7 +1442,7 @@ header .subtitle {
   margin: 8px 0 4px;
   padding: 12px;
   background: var(--field-green);
-  border: 2px solid #a5d6a7;
+  border: 2px solid #000000;
   border-radius: var(--radius-md);
 }
 
@@ -1454,7 +1462,7 @@ header .subtitle {
   justify-content: center;
   background: rgba(255,255,255,0.72);
   border-radius: 8px;
-  box-shadow: inset 0 0 0 1px rgba(46,125,50,0.08);
+  box-shadow: inset 0 0 0 1px #000000;
 }
 
 .group-empty-flag-box .team-flag {
@@ -1513,7 +1521,7 @@ header .subtitle {
 }
 
 .review-match-row.review-partial {
-  background: #fff8e1 !important;
+  background: #ffffff !important;
   border-color: var(--gold-dark) !important;
 }
 
@@ -1554,7 +1562,7 @@ header .subtitle {
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  border: 2px solid #a5d6a7;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--dark-text);
@@ -1581,7 +1589,7 @@ header .subtitle {
 .award-custom-trigger:focus {
   outline: none;
   border-color: var(--grass-green);
-  box-shadow: 0 0 0 3px rgba(76,175,80,0.18), 2px 2px 0 rgba(0,0,0,0.06);
+  box-shadow: 0 0 0 3px #000000, 2px 2px 0 rgba(0,0,0,0.06);
 }
 
 .award-custom-menu {
@@ -1641,7 +1649,7 @@ header .subtitle {
 }
 
 .award-placeholder {
-  color: #78909c;
+  color: #000000;
   font-weight: 900;
 }
 
@@ -1653,7 +1661,7 @@ header .subtitle {
 }
 
 .award-player-country {
-  color: #607d8b;
+  color: #000000;
   font-size: 0.78rem;
   font-weight: 900;
   justify-self: end;
@@ -1735,7 +1743,7 @@ header .subtitle {
   align-items: center;
   gap: 12px;
   padding: 10px 14px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   background: var(--light-bg);
   color: var(--dark-text);
@@ -1756,7 +1764,7 @@ header .subtitle {
 }
 
 .award-picker-option.selected {
-  background: #FFF8E1;
+  background: #ffffff;
   border-color: var(--gold-dark);
 }
 
@@ -1809,18 +1817,18 @@ header .subtitle {
 }
 
 .review-standings-compare .group-team.review-correct {
-  background: #e8f5e9 !important;
-  border-color: #43a047 !important;
+  background: #f0f0f0 !important;
+  border-color: #000000 !important;
 }
 
 .review-standings-compare .group-team.review-partial {
-  background: #fff8e1 !important;
+  background: #ffffff !important;
   border-color: var(--gold-dark) !important;
 }
 
 .review-standings-compare .group-team.review-wrong {
-  background: #ffebee !important;
-  border-color: #e53935 !important;
+  background: #ffffff !important;
+  border-color: #000000 !important;
 }
 
 @media (max-width: 760px) {
@@ -1831,23 +1839,23 @@ header .subtitle {
 
 /* ---- Leaderboard group cards: apply review colors over default 3rd-place styling ---- */
 .review-group-card .group-team.review-correct {
-  background: #e8f5e9 !important;
-  border-color: #43a047 !important;
+  background: #f0f0f0 !important;
+  border-color: #000000 !important;
 }
 
 .review-group-card .group-team.review-partial {
-  background: #fff8e1 !important;
+  background: #ffffff !important;
   border-color: var(--gold-dark) !important;
 }
 
 .review-group-card .group-team.review-wrong {
-  background: #ffebee !important;
-  border-color: #e53935 !important;
+  background: #ffffff !important;
+  border-color: #000000 !important;
 }
 
 .review-group-card .group-team.review-pending {
-  background: #eceff1 !important;
-  border-color: #90a4ae !important;
+  background: #f0f0f0 !important;
+  border-color: #000000 !important;
 }
 
 /* ---- Leaderboard knockout review: predicted vs real ---- */
@@ -1863,7 +1871,7 @@ header .subtitle {
   min-width: 980px;
   margin: 0;
   padding: 12px 8px 18px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-md);
   background: rgba(241,248,233,0.55);
 }
@@ -1878,7 +1886,7 @@ header .subtitle {
 }
 
 .prediction-review .review-knockout-bracket .bracket-slot.winner {
-  background: #fffde7 !important;
+  background: #ffffff !important;
   border-color: var(--gold-dark) !important;
   color: var(--dark-text) !important;
   box-shadow:
@@ -1917,7 +1925,7 @@ header .subtitle {
   align-items: center;
   gap: 18px;
   padding: 10px 14px;
-  border: 2px solid #E0E0E0;
+  border: 2px solid #f0f0f0;
   border-radius: var(--radius-sm);
   background: rgba(255,255,255,0.84);
   color: var(--mid-text);
@@ -1943,11 +1951,11 @@ header .subtitle {
 
 .legend-pred {
   border: 2px solid var(--gold-dark);
-  box-shadow: inset 0 0 0 1px rgba(46,125,50,0.30);
+  box-shadow: inset 0 0 0 1px #000000;
 }
 
 .legend-real {
-  border: 2px solid #90a4ae;
+  border: 2px solid #000000;
   background: rgba(236,239,241,0.48);
   opacity: 0.72;
 }
@@ -1956,7 +1964,7 @@ header .subtitle {
   min-width: 980px;
   margin: 0;
   padding: 12px 8px 18px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-md);
   background: rgba(241,248,233,0.28);
   overflow-x: auto;
@@ -1986,21 +1994,21 @@ header .subtitle {
 }
 
 .review-knockout-real-overlay svg path {
-  stroke: #90a4ae !important;
+  stroke: #000000 !important;
   stroke-width: 2 !important;
 }
 
 .review-knockout-real-overlay .bracket-slot {
   background: rgba(236,239,241,0.72) !important;
-  border-color: #90a4ae !important;
-  color: #455a64 !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
 }
 
 .review-knockout-real-overlay .bracket-slot.winner {
   background: rgba(232,245,233,0.76) !important;
-  border-color: #66bb6a !important;
-  color: #263238 !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
 }
 
 .prediction-review .review-knockout-predicted .bracket-slot.winner {
@@ -2027,8 +2035,8 @@ header .subtitle {
 
 .prediction-review .review-knockout-real-overlay .bracket-slot.winner {
   background: rgba(232,245,233,0.76) !important;
-  border-color: #66bb6a !important;
-  color: #263238 !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
 }
 
@@ -2044,7 +2052,7 @@ header .subtitle {
   min-width: 980px;
   margin: 0;
   padding: 12px 8px 18px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-md);
   background: rgba(241,248,233,0.36);
   overflow-x: auto;
@@ -2063,7 +2071,7 @@ header .subtitle {
   border-color: var(--sky-blue) !important;
   box-shadow:
     0 2px 0 rgba(0,0,0,0.08),
-    0 0 0 3px rgba(100,181,246,0.18),
+    0 0 0 3px #f0f0f0,
     0 5px 14px rgba(0,0,0,0.12) !important;
 }
 
@@ -2104,7 +2112,7 @@ header .subtitle {
   height: 26px;
   border: none;
   border-radius: 999px;
-  background: #ef5350;
+  background: #000000;
   color: white;
   font-size: 18px;
   font-weight: 900;
@@ -2129,19 +2137,19 @@ header .subtitle {
 
 .knockout-popover-card {
   padding: 10px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-sm);
   background: var(--light-bg);
 }
 
 .knockout-popover-card.expected {
   border-color: var(--gold-dark);
-  background: #fffde7;
+  background: #ffffff;
 }
 
 .knockout-popover-card.real {
   border-color: var(--grass-green);
-  background: #e8f5e9;
+  background: #f0f0f0;
 }
 
 .knockout-popover-label {
@@ -2160,7 +2168,7 @@ header .subtitle {
   gap: 8px;
   margin-top: 6px;
   padding: 7px 8px;
-  border: 2px solid #CFD8DC;
+  border: 2px solid #000000;
   border-radius: 10px;
   background: white;
   font-size: 0.86rem;
@@ -2169,7 +2177,7 @@ header .subtitle {
 
 .knockout-popover-team.winner {
   border-color: var(--grass-green);
-  background: #d9f7d9;
+  background: #f0f0f0;
 }
 
 .knockout-popover-team .slot-flag {
@@ -2203,7 +2211,7 @@ header .subtitle {
 
 .scoring-help-card {
   padding: 14px;
-  border: 2px solid #C8E6C9;
+  border: 2px solid #000000;
   border-radius: var(--radius-md);
   background: var(--light-bg);
   box-shadow: 0 2px 0 rgba(0,0,0,0.04);
@@ -2239,7 +2247,7 @@ header .subtitle {
 .scoring-help-footer {
   padding: 12px 14px;
   border-radius: var(--radius-sm);
-  background: #FFF8E1;
+  background: #ffffff;
   border: 2px solid var(--gold);
   text-align: center;
 }
@@ -2258,9 +2266,9 @@ header .subtitle {
 .review-match-points-box {
   min-width: 58px;
   padding: 8px 10px;
-  border: 2px solid #90a4ae;
+  border: 2px solid #000000;
   border-radius: 12px;
-  background: #eceff1;
+  background: #f0f0f0;
   color: var(--mid-text);
   font-size: 0.82rem;
   font-weight: 900;
@@ -2271,7 +2279,7 @@ header .subtitle {
 .review-match-row.review-correct .review-match-points-box,
 .review-match-row.review-partial .review-match-points-box {
   border-color: var(--grass-green);
-  background: #d9f7d9;
+  background: #f0f0f0;
   color: var(--border-color);
 }
 
@@ -2303,8 +2311,8 @@ header .subtitle {
   min-width: 64px;
   padding: 7px 8px;
   border-radius: 999px;
-  border: 2px solid #90a4ae;
-  background: #eceff1;
+  border: 2px solid #000000;
+  background: #f0f0f0;
   color: var(--mid-text);
   font-size: 0.78rem;
   font-weight: 900;
@@ -2313,7 +2321,7 @@ header .subtitle {
 
 .review-points-badge.got-points {
   border-color: var(--grass-green);
-  background: #d9f7d9;
+  background: #f0f0f0;
   color: var(--border-color);
 }
 
@@ -2348,7 +2356,7 @@ header .subtitle {
   gap: 14px;
   padding: 14px;
   border-radius: var(--radius-md);
-  background: #e8f5e9;
+  background: #f0f0f0;
   border: 2px solid var(--grass-green);
 }
 
@@ -2361,15 +2369,15 @@ header .subtitle {
   border-radius: 14px;
   font-size: 1rem;
   font-weight: 900;
-  border: 2px solid #90a4ae;
-  background: #eceff1;
+  border: 2px solid #000000;
+  background: #f0f0f0;
   color: var(--mid-text);
   box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
 }
 
 .scoring-example-badge.got-points {
   border-color: var(--grass-green);
-  background: #d9f7d9;
+  background: #f0f0f0;
   color: var(--border-color);
 }
 
@@ -2397,9 +2405,9 @@ header .subtitle {
   z-index: 4 !important;
   min-width: 68px !important;
   padding: 7px 9px !important;
-  border: 2px solid #90a4ae !important;
+  border: 2px solid #000000 !important;
   border-radius: 12px !important;
-  background: #eceff1 !important;
+  background: #f0f0f0 !important;
   color: var(--mid-text) !important;
   font-size: 0.76rem !important;
   font-weight: 900 !important;
@@ -2411,7 +2419,7 @@ header .subtitle {
 .group-results-readonly .review-match-row.review-correct .review-match-points-box,
 .group-results-readonly .review-match-row.review-partial .review-match-points-box {
   border-color: var(--grass-green) !important;
-  background: #d9f7d9 !important;
+  background: #f0f0f0 !important;
   color: var(--border-color) !important;
 }
 
@@ -2466,8 +2474,8 @@ header .subtitle {
   min-width: 74px !important;
   padding: 7px 9px !important;
   border-radius: 999px !important;
-  border: 2px solid #90a4ae !important;
-  background: #eceff1 !important;
+  border: 2px solid #000000 !important;
+  background: #f0f0f0 !important;
   color: var(--mid-text) !important;
   font-size: 0.78rem !important;
   font-weight: 900 !important;
@@ -2477,7 +2485,7 @@ header .subtitle {
 
 .review-points-badge.got-points {
   border-color: var(--grass-green) !important;
-  background: #d9f7d9 !important;
+  background: #f0f0f0 !important;
   color: var(--border-color) !important;
 }
 
@@ -2520,9 +2528,9 @@ header .subtitle {
   align-items: center;
   justify-content: center;
   padding: 2px 7px;
-  border: 2px solid #90a4ae;
+  border: 2px solid #000000;
   border-radius: 8px;
-  background: #eceff1;
+  background: #f0f0f0;
   color: var(--mid-text);
   font-size: 0.72rem;
   font-weight: 900;
@@ -2533,7 +2541,7 @@ header .subtitle {
 
 .review-knockout-slot-points.got-points {
   border-color: var(--grass-green);
-  background: #d9f7d9;
+  background: #f0f0f0;
   color: var(--border-color);
 }
 
@@ -2572,9 +2580,9 @@ header .subtitle {
   align-items: center;
   justify-content: center;
   padding: 2px 8px;
-  border: 2px solid #90a4ae;
+  border: 2px solid #000000;
   border-radius: 9px;
-  background: #eceff1;
+  background: #f0f0f0;
   color: var(--mid-text);
   font-size: 0.76rem;
   font-weight: 900;
@@ -2585,7 +2593,7 @@ header .subtitle {
 
 .review-group-total-points.got-points {
   border-color: var(--grass-green);
-  background: #d9f7d9;
+  background: #f0f0f0;
   color: var(--border-color);
 }
 

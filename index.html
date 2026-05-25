@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mundial FIFA 2026</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
-  <link rel="stylesheet" href="style.css?v=group-rules-positions-only">
+  <link rel="stylesheet" href="style.css?v=cachebust-4">
 </head>
 <body>
 
   <header>
-    <h1>⚽ Ulises, tráyame el MUNDIAL 2026 ⚽</h1>
-    <p class="subtitle">¿Cuál va a ser tu "ojito con..."?</p>
+    <h1>⚽ ¡Pronóstico Mundialero 2026! ⚽</h1>
+    <p class="subtitle">¿Quién va a dar el campanazo, parce / güey?</p>
     <span id="userGreeting" class="user-greeting"></span>
   </header>
 
@@ -27,19 +27,19 @@
 
       <!-- Toolbar -->
       <div class="toolbar-btns">
-        <button class="toolbar-btn" id="btnRandomize">&#127402; Rellenar al azar (Me da pereza)</button>
-        <button class="toolbar-btn" id="btnReset">&#128260; Limpiar todo (no hay vuelta atrás)</button>
-        <button class="toolbar-btn" id="btnScoringHelp">❓ Cómo se puntúa</button>
+        <div class="instruction-box" style="background:#ffb300; padding:10px 15px; border-radius:10px; font-weight:bold; color:#000000; border:2px solid #000000; display:inline-block;">⚠️ Por favor, asegúrate de llenar todos los resultados.</div>
+        <button class="toolbar-btn" id="btnReset">&#128260; Limpiar todo (cero excusas parce)</button>
+        <button class="toolbar-btn" id="btnScoringHelp">❓ ¿Cómo es la movida de los puntos?</button>
       </div>
 
       <!-- Group Stage -->
       <h2 class="section-title">&#127758; Fase de grupos</h2>
-      <p class="note-text">Haz click en cada grupo y mete los resultados. Hasta entonces solo verás las banderas; el ranking y los mejores terceros se calculan solos.</p>
+      <p class="note-text">Dale click a cada grupo y ponle los resultados. De momento ves puras banderas; el ranking y los terceros se arman solos, papá.</p>
       <div class="groups-grid" id="groupsGrid"></div>
 
       <!-- Knockout Bracket -->
       <h2 class="section-title">🥊 Knockouts</h2>
-      <p class="note-text">Es de cajón cómo funciona. Si te hacen falta instrucciones mereces palmar.</p>
+      <p class="note-text">¡Revisa tus cruces, parce! Aquí es donde los grandes demuestran si saben o no saben.</p>
       <div class="bracket-wrapper">
         <div class="bracket" id="bracketContainer"></div>
       </div>
@@ -82,7 +82,7 @@
       <!-- Underdog -->
       <div class="underdog-section">
         <h3>&#128052; Underdog Mundialero</h3>
-        <p class="note-text">Elige un equipo sorpresa (ranking FIFA fuera del top 15). Si lleja lejos en la vida real, ganas puntos extra. El underdog se eval&uacute;a al final del mundial contra los resultados reales.</p>
+        <p class="note-text">Tráenos la sorpresa compadre (fuera del top 15 FIFA). Si la rompe en la vida real, te llevas hartos puntos.</p>
         <div class="underdog-row">
           <select id="underdogSelect" class="award-select"></select>
         </div>
@@ -93,7 +93,7 @@
 
       <!-- Submit -->
       <div class="submit-section">
-        <button class="submit-btn" id="btnSubmit">&#9917; Sentar cátedra</button>
+        <button class="submit-btn" id="btnSubmit">&#9917; ¡Mandar mi pronóstico a huevo!</button>
       </div>
 
     </div>
@@ -104,7 +104,7 @@
     <div class="container">
       <h2 class="section-title">&#127942; Ranking</h2>
       <p class="note-text">
-        Haz click en un jugador para confirmar el sesgo que ya tienes de que no tiene razón.
+        Dale click a un compa para ver su pronóstico y tirarle carrilla.
       </p>
 
       <div id="leaderboardContent">
@@ -114,9 +114,12 @@
   </div>
 
   <div class="prediction-modal-overlay" id="predictionModal" style="display:none;">
-    <div class="prediction-modal">
-      <button class="prediction-modal-close" id="closePredictionModal">×</button>
-      <div id="predictionViewer"></div>
+    <div class="prediction-modal" id="predictionModalContent">
+      <div class="prediction-modal-toolbar">
+        <button class="toolbar-btn" id="btnDownloadFicha" style="margin-bottom: 10px;">📸 Descargar Ficha (PNG)</button>
+        <button class="prediction-modal-close" id="closePredictionModal">×</button>
+      </div>
+      <div id="predictionViewer" style="background: white; padding: 10px; border-radius: 8px;"></div>
     </div>
   </div>
 
@@ -156,25 +159,26 @@
     window.dispatchEvent(new Event('firebase-ready'));
   </script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="third_place_table.js"></script>
   <script src="results.js"></script>
-  <script src="app.js?v=third-place-between-semis"></script>
+  <script src="app.js?v=cachebust-4"></script>
   <div class="name-modal-overlay" id="nameModal" style="display:none;">
   <div class="name-modal">
-    <h3>Así que sentando cátedra, ¿eh?</h3>
-    <p>¿Quién cojones eres?</p>
+    <h3>¡Qué chimba de predicción parce! ¿Quién eres?</h3>
+    <p>Dinos tu nombre para el muro de la fama:</p>
 
     <input
       type="text"
       id="playerNameInput"
       class="name-modal-input"
-      placeholder="Your name"
+      placeholder="Tu nombrecito"
       maxlength="40"
     >
 
     <div class="name-modal-actions">
-      <button type="button" class="toolbar-btn" id="cancelNameSubmit">Paso</button>
-      <button type="button" class="submit-btn" id="confirmNameSubmit">Apostar</button>
+      <button type="button" class="toolbar-btn" id="cancelNameSubmit">Ni madres</button>
+      <button type="button" class="submit-btn" id="confirmNameSubmit">¡A wuevo, apostar!</button>
     </div>
   </div>
 </div>
