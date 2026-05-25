@@ -3373,6 +3373,10 @@ function closeNameModal() {
 }
 
 function submitPrediction() {
+  if (isAdminMode) {
+    confirmSubmitPrediction('ADMIN');
+    return;
+  }
   const storedName = localStorage.getItem(STORED_NAME_KEY);
   if (storedName) {
     openNameModalForSubmit();
@@ -3383,44 +3387,62 @@ function submitPrediction() {
 
 async function confirmSubmitPrediction(playerName) {
   const name = playerName || document.getElementById('playerNameInput')?.value.trim() || localStorage.getItem(STORED_NAME_KEY);
-  if (!name) {
+  if (!name && !isAdminMode) {
     openNameModalForSubmit();
     return;
   }
 
-  showLoading('Comprobando...');
-  const exists = await checkAlreadySubmitted(name);
-  hideLoading();
+  if (!isAdminMode) {
+    showLoading('Comprobando...');
+    const exists = await checkAlreadySubmitted(name);
+    hideLoading();
 
-  if (exists) {
-    if (!confirm('Ya enviaste tu predicción. ¿Quieres actualizarla?')) {
-      return;
+    if (exists) {
+      if (!confirm('Ya enviaste tu predicción. ¿Quieres actualizarla?')) {
+        return;
+      }
     }
+
+    // Save/update the name in localStorage
+    localStorage.setItem(STORED_NAME_KEY, name);
   }
 
-  // Save/update the name in localStorage
-  localStorage.setItem(STORED_NAME_KEY, name);
-
   const payload = buildPayload();
-  payload.name = name;
+  if (isAdminMode) {
+    payload.name = 'Official Results';
+  } else {
+    payload.name = name;
+  }
   payload._submittedAt = new Date().toISOString();
 
   closeNameModal();
   showLoading('Publicando...');
 
   try {
-    const colRef = window.fsCollection(window.db, 'predictions');
-    const docRef = window.fsDoc(colRef, name);
+    let docRef;
+    if (isAdminMode) {
+      docRef = window.fsDoc(window.db, 'official_results', 'master');
+    } else {
+      const colRef = window.fsCollection(window.db, 'predictions');
+      docRef = window.fsDoc(colRef, name);
+    }
+    
     await window.fsSetDoc(docRef, payload);
     hideLoading();
     fireConfetti();
-    showToast('¡Listo parce! Tu predicción se ha guardado al puro millón.');
-
-    // Auto-download PNG logic
-    renderPredictionReview(payload);
-    setTimeout(() => {
-      triggerFichaDownload(name);
-    }, 500);
+    
+    if (isAdminMode) {
+      showToast('¡Resultados Oficiales Guardados Correctamente!');
+      return; // Do not auto-download or show prediction review for Admin
+    } else {
+      showToast('¡Listo parce! Tu predicción se ha guardado al puro millón.');
+  
+      // Auto-download PNG logic
+      renderPredictionReview(payload);
+      setTimeout(() => {
+        triggerFichaDownload(name);
+      }, 500);
+    }
 
   } catch(e) {
     console.error("Error guardando predicción:", e);
@@ -3616,6 +3638,54 @@ async function init() {
   if (window.location.hash === '#leaderboard') {
     document.querySelector('[data-tab="leaderboard"]').click();
   }
+
+  listenToOfficialResults();
+  setupAdmin();
+}
+
+let isAdminMode = false;
+let clickCount = 0;
+let clickTimer = null;
+
+function setupAdmin() {
+  const title = document.getElementById('mainTitle');
+  if (title) {
+    title.addEventListener('click', () => {
+      clickCount++;
+      if (clickTimer) clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+      if (clickCount >= 5) {
+        clickCount = 0;
+        const pwd = prompt('Para ser moderador y guardar los resultados oficiales, ingresa la clave:');
+        if (pwd === 'ulises2026') {
+          isAdminMode = true;
+          document.body.style.border = '5px solid red';
+          document.body.style.boxSizing = 'border-box';
+          document.getElementById('btnSubmit').innerHTML = '🔴 GUARDAR RESULTADOS OFICIALES 🔴';
+          document.getElementById('btnSubmit').style.background = '#e74c3c';
+          alert('MODO ADMINISTRADOR ACTIVADO.\nTodos los cambios que hagas y guardes se sincronizarán como Resultados Reales para todos los jugadores.');
+        } else {
+          alert('Clave incorrecta.');
+        }
+      }
+    });
+  }
+}
+
+function listenToOfficialResults() {
+  const docRef = window.fsDoc(window.db, 'official_results', 'master');
+  window.fsOnSnapshot(docRef, (docSnap) => {
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      // Overwrite the globally shared RESULTS with the snapshot
+      Object.assign(RESULTS, data);
+      
+      // Update leaderboard if we are on the page
+      if (document.getElementById('leaderboardContent')) {
+        loadLeaderboard();
+      }
+    }
+  });
 }
 
 let domReady = document.readyState === 'interactive' || document.readyState === 'complete';
