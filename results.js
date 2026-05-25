@@ -19,8 +19,8 @@ const RESULTS = {
     "thirdPlace": null
   },
   "awards": {
-    "goldenBoot": [null, null, null],
-    "goldenBall": [null, null, null],
+    "goldenBoot": null,
+    "goldenBall": null,
     "goldenGlove": null,
     "bestYoungPlayer": null
   }

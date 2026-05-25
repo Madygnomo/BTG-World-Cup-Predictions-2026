@@ -32,8 +32,8 @@ const puntuaciones = {
     thirdPlace: 15
   },
   premios: {
-    goldenBoot: [15, 10, 5],
-    goldenBall: [15, 10, 5]
+    goldenBoot: 15,
+    goldenBall: 15
   },
   underdog: {
     round32: 10,
@@ -415,7 +415,7 @@ let state = {
   thirdPlace: [],
   matchTeams: {},         // matchId -> { team1, team2 }
   knockoutResults: {},    // matchId -> winner team name
-  awards: { goldenBoot: ['','',''], goldenBall: ['','',''] },
+  awards: { goldenBoot: '', goldenBall: '' },
   underdog: ''
 };
 
@@ -491,8 +491,8 @@ function restoreLocalPrediction() {
 
     if (data.awards) {
       state.awards = {
-        goldenBoot: data.awards.goldenBoot || ['', '', ''],
-        goldenBall: data.awards.goldenBall || ['', '', '']
+        goldenBoot: Array.isArray(data.awards.goldenBoot) ? (data.awards.goldenBoot[0] || '') : (data.awards.goldenBoot || ''),
+        goldenBall: Array.isArray(data.awards.goldenBall) ? (data.awards.goldenBall[0] || '') : (data.awards.goldenBall || '')
       };
     }
 
@@ -1622,7 +1622,7 @@ function clearKnockoutAndRender(team) {
 }
 
 // ---- Awards ----
-const AWARD_SELECT_IDS = ['awardGb1', 'awardGb2', 'awardGb3', 'awardBa1', 'awardBa2', 'awardBa3'];
+const AWARD_SELECT_IDS = ['awardGb1', 'awardBa1'];
 
 function getPlayerByName(name) {
   return AWARD_PLAYERS.find(p => p.name === name) || null;
@@ -1821,16 +1821,8 @@ function syncAwardCustomSelects() {
 
 function readAwards() {
   return {
-    goldenBoot: [
-      document.getElementById('awardGb1')?.value || '',
-      document.getElementById('awardGb2')?.value || '',
-      document.getElementById('awardGb3')?.value || ''
-    ],
-    goldenBall: [
-      document.getElementById('awardBa1')?.value || '',
-      document.getElementById('awardBa2')?.value || '',
-      document.getElementById('awardBa3')?.value || ''
-    ]
+    goldenBoot: document.getElementById('awardGb1')?.value || '',
+    goldenBall: document.getElementById('awardBa1')?.value || ''
   };
 }
 
@@ -1840,15 +1832,20 @@ function fillAwards(a) {
   if (!a) return;
 
   if (a.goldenBoot) {
-    document.getElementById('awardGb1').value = a.goldenBoot[0] || '';
-    document.getElementById('awardGb2').value = a.goldenBoot[1] || '';
-    document.getElementById('awardGb3').value = a.goldenBoot[2] || '';
+    // Handling legacy format if someone had array
+    if (Array.isArray(a.goldenBoot)) {
+      document.getElementById('awardGb1').value = a.goldenBoot[0] || '';
+    } else {
+      document.getElementById('awardGb1').value = a.goldenBoot || '';
+    }
   }
 
   if (a.goldenBall) {
-    document.getElementById('awardBa1').value = a.goldenBall[0] || '';
-    document.getElementById('awardBa2').value = a.goldenBall[1] || '';
-    document.getElementById('awardBa3').value = a.goldenBall[2] || '';
+    if (Array.isArray(a.goldenBall)) {
+      document.getElementById('awardBa1').value = a.goldenBall[0] || '';
+    } else {
+      document.getElementById('awardBa1').value = a.goldenBall || '';
+    }
   }
 
   syncAwardCustomSelects();
@@ -2134,19 +2131,19 @@ function scorePrediction(prediction, results = RESULTS) {
 
   score += getKnockoutScoreBreakdown(prediction, results);
 
-  const predBoot = prediction.awards?.goldenBoot || [];
-  const realBoot = results.awards?.goldenBoot || [];
+  let predBoot = prediction.awards?.goldenBoot || '';
+  let realBoot = results.awards?.goldenBoot || '';
+  if (Array.isArray(predBoot)) predBoot = predBoot[0];
+  if (Array.isArray(realBoot)) realBoot = realBoot[0];
 
-  if (realBoot[0] && predBoot[0] === realBoot[0]) score += puntuaciones.premios.goldenBoot[0];
-  if (realBoot[1] && predBoot[1] === realBoot[1]) score += puntuaciones.premios.goldenBoot[1];
-  if (realBoot[2] && predBoot[2] === realBoot[2]) score += puntuaciones.premios.goldenBoot[2];
+  if (realBoot && predBoot === realBoot) score += puntuaciones.premios.goldenBoot;
 
-  const predBall = prediction.awards?.goldenBall || [];
-  const realBall = results.awards?.goldenBall || [];
+  let predBall = prediction.awards?.goldenBall || '';
+  let realBall = results.awards?.goldenBall || '';
+  if (Array.isArray(predBall)) predBall = predBall[0];
+  if (Array.isArray(realBall)) realBall = realBall[0];
 
-  if (realBall[0] && predBall[0] === realBall[0]) score += puntuaciones.premios.goldenBall[0];
-  if (realBall[1] && predBall[1] === realBall[1]) score += puntuaciones.premios.goldenBall[1];
-  if (realBall[2] && predBall[2] === realBall[2]) score += puntuaciones.premios.goldenBall[2];
+  if (realBall && predBall === realBall) score += puntuaciones.premios.goldenBall;
 
   // Underdog bonus
   const predUnderdog = prediction.underdog;
@@ -2319,8 +2316,8 @@ function openScoringHelpModal() {
         <div class="scoring-help-card">
           <h4>⭐ Premios individuales</h4>
           <ul>
-            <li>Bota de Oro: <strong>${puntuaciones.premios.goldenBoot.join(' / ')} pts</strong></li>
-            <li>Balón de Oro: <strong>${puntuaciones.premios.goldenBall.join(' / ')} pts</strong></li>
+            <li>Bota de Oro: <strong>${puntuaciones.premios.goldenBoot} pts</strong></li>
+            <li>Balón de Oro: <strong>${puntuaciones.premios.goldenBall} pts</strong></li>
           </ul>
         </div>
 
@@ -3221,13 +3218,19 @@ function renderReviewAwards(prediction) {
   container.className = 'awards-section';
   container.innerHTML = '';
 
+  let pBoot = prediction.awards?.goldenBoot || '';
+  let rBoot = RESULTS.awards?.goldenBoot || '';
+  if (Array.isArray(pBoot)) pBoot = pBoot[0];
+  if (Array.isArray(rBoot)) rBoot = rBoot[0];
+
+  let pBall = prediction.awards?.goldenBall || '';
+  let rBall = RESULTS.awards?.goldenBall || '';
+  if (Array.isArray(pBall)) pBall = pBall[0];
+  if (Array.isArray(rBall)) rBall = rBall[0];
+
   const rows = [
-    [`Bota de oro (${puntuaciones.premios.goldenBoot[0]}pt)`, prediction.awards?.goldenBoot?.[0], RESULTS.awards?.goldenBoot?.[0]],
-    [`Bota de plata (${puntuaciones.premios.goldenBoot[1]}pt)`, prediction.awards?.goldenBoot?.[1], RESULTS.awards?.goldenBoot?.[1]],
-    [`Bota de bronce(${puntuaciones.premios.goldenBoot[2]}pt)`, prediction.awards?.goldenBoot?.[2], RESULTS.awards?.goldenBoot?.[2]],
-    [`Balón de oro (${puntuaciones.premios.goldenBall[0]}pt)`, prediction.awards?.goldenBall?.[0], RESULTS.awards?.goldenBall?.[0]],
-    [`Balón de plata (${puntuaciones.premios.goldenBall[1]}pt)`, prediction.awards?.goldenBall?.[1], RESULTS.awards?.goldenBall?.[1]],
-    [`Balón de bronce (${puntuaciones.premios.goldenBall[2]}pt)`, prediction.awards?.goldenBall?.[2], RESULTS.awards?.goldenBall?.[2]]
+    [`Bota de oro (${puntuaciones.premios.goldenBoot}pt)`, pBoot, rBoot],
+    [`Balón de oro (${puntuaciones.premios.goldenBall}pt)`, pBall, rBall]
   ];
 
   rows.forEach(([label, predicted, real]) => {
@@ -3545,8 +3548,8 @@ function resetState() {
   state.knockout = {};
 
   state.awards = {
-    goldenBoot: ['', '', ''],
-    goldenBall: ['', '', '']
+    goldenBoot: '',
+    goldenBall: ''
   };
   state.underdog = '';
 
