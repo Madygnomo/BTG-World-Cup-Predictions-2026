@@ -3415,10 +3415,51 @@ async function confirmSubmitPrediction(playerName) {
     hideLoading();
     fireConfetti();
     showToast('¡Listo parce! Tu predicción se ha guardado al puro millón.');
+
+    // Auto-download PNG logic
+    renderPredictionReview(payload);
+    setTimeout(() => {
+      triggerFichaDownload(name);
+    }, 500);
+
   } catch(e) {
     console.error("Error guardando predicción:", e);
     hideLoading();
     showToast('Error carnal. Inténtalo otra vez o pega el grito.', true);
+  }
+}
+
+async function triggerFichaDownload(playerName) {
+  showLoading('Preparando ficha (PNG)...');
+  try {
+    const viewer = document.getElementById('predictionModalContent');
+    const toolbar = viewer.querySelector('.prediction-modal-toolbar');
+    if (toolbar) toolbar.style.display = 'none';
+
+    const canvas = await html2canvas(viewer, {
+      scale: 2, 
+      backgroundColor: '#ffffff',
+      useCORS: true,
+      logging: false
+    });
+
+    if (toolbar) toolbar.style.display = 'flex';
+
+    const dataUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    const safeName = (playerName || 'quiniela').replace(/\s+/g, '_');
+    link.download = `pronostico_mundial26_${safeName}.png`;
+    link.href = dataUrl;
+    link.click();
+    
+    alert('¡Ficha descargada!\n\nEnvia la ficha al grupo para dar seguimiento a tus resultados.');
+  } catch(err) {
+    console.error(err);
+    showToast('No se pudo generar la imagen. Intenta desde la PC.', true);
+    const toolbar = document.querySelector('.prediction-modal-toolbar');
+    if (toolbar) toolbar.style.display = 'flex';
+  } finally {
+    hideLoading();
   }
 }
 
@@ -3532,46 +3573,6 @@ async function init() {
   document.getElementById('playerNameInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') handleNameModalConfirm();
     if (e.key === 'Escape') closeNameModal();
-  });
-
-  document.getElementById('btnDownloadFicha').addEventListener('click', async () => {
-    const btn = document.getElementById('btnDownloadFicha');
-    const oldText = btn.textContent;
-    btn.textContent = '📸 Preparando foto...';
-    btn.disabled = true;
-
-    try {
-      const viewer = document.getElementById('predictionModalContent');
-      // Hide close button and download button temporarily for clean screenshot
-      const toolbar = viewer.querySelector('.prediction-modal-toolbar');
-      if (toolbar) toolbar.style.display = 'none';
-
-      const canvas = await html2canvas(viewer, {
-        scale: 2, 
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false
-      });
-
-      if (toolbar) toolbar.style.display = 'flex';
-
-      const dataUrl = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      const storedName = localStorage.getItem(STORED_NAME_KEY) || 'quiniela';
-      link.download = `pronostico_mundial26_${storedName.replace(/\s+/g, '_')}.png`;
-      link.href = dataUrl;
-      link.click();
-      
-      showToast('¡Ficha descargada! Mándala por Teams.');
-    } catch(err) {
-      console.error(err);
-      showToast('No se pudo generar la imagen. Intenta desde la PC.', true);
-      const toolbar = document.querySelector('.prediction-modal-toolbar');
-      if (toolbar) toolbar.style.display = 'flex';
-    } finally {
-      btn.textContent = oldText;
-      btn.disabled = false;
-    }
   });
 
   document.getElementById('closePredictionModal').addEventListener('click', closePredictionModal);
